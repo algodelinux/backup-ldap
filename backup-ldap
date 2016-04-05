@@ -1,0 +1,31 @@
+#!/bin/bash
+#
+# nombre              : backup-ldap
+# descripción         : Realizar un backup LDAP
+# autor               : Esteban M. Navas Martín
+# fecha creación      : 22122015
+# última modificación : 05042016
+# uso	              : ldap-backup
+# instalación         : Guardar en  /usr/local/sbin/
+# sugerencia          : Programar tarea cron:
+#                       00 9    * * 7   root    /usr/local/sbin/backup-ldap
+
+#
+# Copyright 2015, Esteban M. Navas Martín <algodelinux@gmail.com>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License at <http://www.gnu.org/licenses/> for
+# more details.
+#
+
+TIMESTAMP=`date +"%Y%m%d"`
+
+/etc/init.d/slapd stop; slapcat -n 0 -l /var/backups/backup-config-ldap-$TIMESTAMP.ldif; slapcat -n 1 -l /var/backups/backup-db-ldap-$TIMESTAMP.ldif; slapindex -vF /etc/ldap/slapd.d; /etc/init.d/slapd start
+chmod 640 /var/backups/backup-*-ldap-$TIMESTAMP.ldif
