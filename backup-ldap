@@ -4,8 +4,8 @@
 # descripción         : Realizar un backup LDAP
 # autor               : Esteban M. Navas Martín
 # fecha creación      : 22122015
-# última modificación : 05042016
-# uso	              : ldap-backup
+# última modificación : 06042017
+# uso                 : ldap-backup
 # instalación         : Guardar en  /usr/local/sbin/
 # sugerencia          : Programar tarea cron:
 #                       00 9    * * 7   root    /usr/local/sbin/backup-ldap
@@ -27,5 +27,6 @@
 
 TIMESTAMP=`date +"%Y%m%d"`
 
-/etc/init.d/slapd stop; slapcat -n 0 -l /var/backups/backup-config-ldap-$TIMESTAMP.ldif; slapcat -n 1 -l /var/backups/backup-db-ldap-$TIMESTAMP.ldif; slapindex -vF /etc/ldap/slapd.d; /etc/init.d/slapd start
+/bin/systemctl stop slapd.service; slapcat -n 0 -l /var/backups/backup-config-ldap-$TIMESTAMP.ldif; slapcat -n 1 -l /var/backups/backup-db-ldap-$TIMESTAMP.ldif; slapindex -vF /etc/ldap/slapd.d; /bin/systemctl start slapd.service; /bin/systemctl restart pdns-recursor.service && /bin/systemctl restart pdns.service && /bin/systemctl restart isc-dhcp-server.service
 chmod 640 /var/backups/backup-*-ldap-$TIMESTAMP.ldif
+
