@@ -27,6 +27,5 @@
 
 TIMESTAMP=`date +"%Y%m%d"`
 
-/bin/systemctl stop slapd.service; slapcat -n 0 -l /var/backups/backup-config-ldap-$TIMESTAMP.ldif; slapcat -n 1 -l /var/backups/backup-db-ldap-$TIMESTAMP.ldif; slapindex -vF /etc/ldap/slapd.d; /bin/systemctl start slapd.service; /bin/systemctl restart pdns-recursor.service && /bin/systemctl restart pdns.service && /bin/systemctl restart isc-dhcp-server.service
+/bin/systemctl stop slapd.service; slapcat -n 0 -l /var/backups/backup-config-ldap-$TIMESTAMP.ldif; slapcat -n 1 -l /var/backups/backup-db-ldap-$TIMESTAMP.ldif; slapindex -vF /etc/ldap/slapd.d; /bin/systemctl start slapd.service; /bin/systemctl restart pdns-recursor.service && /bin/systemctl restart pdns.service && sleep 2 && /bin/systemctl restart isc-dhcp-server.service
 chmod 640 /var/backups/backup-*-ldap-$TIMESTAMP.ldif
-
