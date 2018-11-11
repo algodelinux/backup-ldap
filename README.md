@@ -17,8 +17,7 @@ Instalación
 
 La forma más sencilla de instalarlo es ejecutar estos comandos en el servidor ldap:
 
-   $ wget --no-check-certificate -O /usr/local/sbin/backup-ldap https://raw.githubusercontent.com/algodelinux/backup-ldap/master/backup-ldap
-   $ chmod 755 /usr/local/sbin/backup-ldap
+   $ wget --no-check-certificate -O /usr/local/sbin/backup-ldap https://raw.githubusercontent.com/algodelinux/backup-ldap/master/backup-ldap && chmod 755 /usr/local/sbin/backup-ldap
   
 
 Uso                   
